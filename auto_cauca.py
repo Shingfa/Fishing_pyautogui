@@ -1,6 +1,6 @@
 import pyautogui
 import time
-#day 28/7
+
 # ================= CẤU HÌNH TỌA ĐỘ, VÙNG & MÀU SẮC =================
 WATER_POS = (466, 595)  
 SEARCH_REGION = (316, 445, 250, 250) 
@@ -10,7 +10,7 @@ COLOR_TOLERANCE = 50
 DISCARD_POS = (662, 668) 
 DISCARD_COLOR = (0, 48, 62) 
 
-SUBMERGE_TIME = 0.15
+SUBMERGE_TIME = 0.2
 MAX_WAIT_BITE = 30
 # ===================================================================
 
@@ -27,7 +27,6 @@ def is_color_in_region(region, target_color, tolerance=30):
     return False
 
 def check_discard_button():
-    # SỬA LỖI 2: Hạ tolerance xuống 5 để không bao giờ nhận diện nhầm mặt nước đen thành nút Bỏ cá
     return pyautogui.pixelMatchesColor(DISCARD_POS[0], DISCARD_POS[1], DISCARD_COLOR, tolerance=5)
 
 print("Bắt đầu Auto sau 3 giây...")
@@ -37,7 +36,13 @@ try:
     while True:
         print("\n--- BẮT ĐẦU LƯỢT MỚI ---")
         
-        # --- KHỐI 1: VÒNG LẶP QUĂNG CẦN THÔNG MINH (CHỐNG LỆCH NHỊP) ---
+        # --- BƯỚC DỌN DẸP: XÓA SỔ BẢNG UI KẸT TỪ LƯỢT TRƯỚC ---
+        if check_discard_button():
+            print("Phát hiện bảng Thả cá kẹt từ lượt trước! Đang dọn dẹp...")
+            pyautogui.click(DISCARD_POS)
+            time.sleep(2.0)
+            
+        # --- KHỐI 1: VÒNG LẶP QUĂNG CẦN THÔNG MINH ---
         phat_hien_phao = False
         while not phat_hien_phao:
             print("Quăng cần...")
@@ -57,7 +62,6 @@ try:
                     pyautogui.click(DISCARD_POS)
                     time.sleep(2.0)
                 else:
-                    # Nghỉ 2s trước khi vòng lặp tự động quay lại click WATER_POS để nắn nhịp
                     time.sleep(2.0) 
         
         # --- KHỐI 2: CHỜ CÁ CẮN ---
@@ -88,12 +92,11 @@ try:
             continue 
             
         # --- KHỐI 3: KÉO CÁ & THẢ CÁ ---
-        # SỬA LỖI 1: Thay mouseDown (nhấn giữ) thành click 1 lần theo đúng cơ chế game
         print("Giật cần! (Click 1 lần)...")
         pyautogui.click(WATER_POS) 
         
         print("Đang chờ nhân vật kéo cá lên...")
-        time.sleep(5.95) 
+        time.sleep(5.89) 
         
         wait_pull = time.time()
         keo_thanh_cong = False
@@ -103,17 +106,17 @@ try:
                 keo_thanh_cong = True
                 break
             
-            if time.time() - wait_pull > 15: 
+            if time.time() - wait_pull > 10: 
                 break
             time.sleep(0.1)
             
         if keo_thanh_cong:
             print("Thả cá...")
             pyautogui.click(DISCARD_POS)
-            time.sleep(1.8) 
+            time.sleep(1) 
         else:
             print("Lỗi kéo cần (tuột cá). Chuẩn bị quăng lại...")
-            time.sleep(1.8)
+            time.sleep(1.6)
 
 except KeyboardInterrupt:
     print("\nĐã dừng chương trình Auto.")
