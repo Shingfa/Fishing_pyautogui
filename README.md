@@ -7,8 +7,8 @@ Bộ công cụ gồm 2 script Python giúp bạn tự động hóa việc câu 
 
 ## 📁 Cấu trúc kho lưu trữ (Repository)
 
-* `lay_toa_do.py`: Script phụ trợ giúp quét tọa độ chuột và mã màu RGB theo thời gian thực.
-* `auto_cau_ca.py`: Script chính thực hiện toàn bộ quy trình auto câu cá, chống kẹt UI và tự động nắn nhịp.
+* `toa_do.py`: Script phụ trợ giúp quét tọa độ chuột và mã màu RGB theo thời gian thực.
+* `auto_cauca.py`: Script chính thực hiện toàn bộ quy trình auto câu cá, chống kẹt UI và tự động nắn nhịp.
 * `README.md`: Hướng dẫn sử dụng.
 
 ---
@@ -93,7 +93,7 @@ MAX_WAIT_BITE = 30
 ## 🚀 Bước 4: Vận hành Tool
 
 1. Mở game và đưa nhân vật vào góc độ câu cá cố định như lúc bạn đo tọa độ.
-2. Chạy file `auto_cau_ca.py`. Máy tính sẽ bắt đầu làm việc sau 3s
+2. Chạy file `auto_cauca.py`. Máy tính sẽ bắt đầu làm việc sau 3s
 3. **Cách tắt khẩn cấp:**
    - Nhấn tổ hợp phím `Ctrl + C` trong cửa sổ Terminal/CMD.
    - Hoặc vẩy mạnh chuột ra một trong các góc sát màn hình để kích hoạt tính năng an toàn Fail-Safe của PyAutoGUI.
